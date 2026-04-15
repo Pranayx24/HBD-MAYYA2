@@ -22,6 +22,7 @@ html {
 body {
   margin: 0;
   min-height: 100vh;
+  min-height: 100svh;
   color: var(--ivory);
   background:
     radial-gradient(circle at 15% 10%, rgba(216, 173, 71, 0.2), transparent 28rem),
@@ -66,6 +67,16 @@ body::after {
 
 button {
   font: inherit;
+}
+
+button,
+a,
+input {
+  -webkit-tap-highlight-color: rgba(246, 215, 122, 0.22);
+}
+
+img {
+  max-width: 100%;
 }
 
 .scroll-progress {
@@ -165,6 +176,10 @@ button {
   background: var(--gold-bright);
 }
 
+.mobile-nav {
+  display: none;
+}
+
 .sound-dock {
   position: fixed;
   top: 1rem;
@@ -240,6 +255,7 @@ button {
 
 .hero {
   min-height: 92vh;
+  min-height: 92svh;
   display: grid;
   align-items: center;
   padding-top: 7rem;
@@ -1183,6 +1199,41 @@ footer p {
     display: none;
   }
 
+  .mobile-nav {
+    position: fixed;
+    left: 0.75rem;
+    right: 0.75rem;
+    bottom: 0.75rem;
+    z-index: 25;
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 0.25rem;
+    padding: 0.35rem;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    background: rgba(8, 8, 7, 0.86);
+    box-shadow: 0 1rem 2.5rem rgba(0, 0, 0, 0.62);
+    backdrop-filter: blur(16px);
+  }
+
+  .mobile-nav a {
+    min-height: 2.65rem;
+    display: grid;
+    place-items: center;
+    color: var(--muted);
+    border-radius: 6px;
+    font-family: "Segoe UI", Arial, sans-serif;
+    font-size: 0.82rem;
+    font-weight: 800;
+    text-decoration: none;
+  }
+
+  .mobile-nav a:hover,
+  .mobile-nav a:focus-visible {
+    color: #171108;
+    background: var(--gold-bright);
+  }
+
   .section {
     padding: 4.5rem 0;
   }
@@ -1208,6 +1259,10 @@ footer p {
     grid-template-columns: 1fr;
   }
 
+  footer {
+    padding-bottom: 6rem;
+  }
+
   figure,
   figure img {
     min-height: 330px;
@@ -1215,6 +1270,44 @@ footer p {
 }
 
 @media (max-width: 560px) {
+  body {
+    background:
+      radial-gradient(circle at 18% 8%, rgba(216, 173, 71, 0.18), transparent 19rem),
+      radial-gradient(circle at 80% 28%, rgba(137, 198, 160, 0.1), transparent 18rem),
+      linear-gradient(145deg, #050505 0%, #11100c 52%, #020202 100%);
+  }
+
+  body::before {
+    background-size: 48px 48px;
+  }
+
+  .intro-curtain {
+    align-items: end;
+    padding: 0.75rem 0.75rem 5.4rem;
+  }
+
+  .curtain-panel {
+    padding: 1.25rem;
+  }
+
+  .curtain-panel h2 {
+    font-size: 1.85rem;
+  }
+
+  .curtain-panel p:not(.eyebrow) {
+    font-size: 1rem;
+  }
+
+  .open-surprise,
+  .share-button,
+  .next-wish-button,
+  .print-letter-button,
+  .wish-form button,
+  .confetti-button {
+    width: 100%;
+    min-height: 3rem;
+  }
+
   .sound-dock {
     top: 0.75rem;
     right: 0.75rem;
@@ -1231,29 +1324,77 @@ footer p {
     font-size: 0.9rem;
   }
 
+  .mobile-nav {
+    left: 0.5rem;
+    right: 0.5rem;
+    bottom: 0.5rem;
+  }
+
   .section {
     width: min(100% - 1.25rem, 1120px);
-    padding: 3.5rem 0;
+    padding: 3.25rem 0;
   }
 
   .hero {
-    min-height: 90vh;
-    padding-top: 6rem;
+    min-height: 90svh;
+    align-items: end;
+    padding-top: 5.8rem;
+    padding-bottom: 2rem;
   }
 
   h1 {
-    font-size: 2.65rem;
+    font-size: clamp(2.35rem, 14vw, 3.15rem);
+    line-height: 1;
   }
 
   h2 {
-    font-size: 2rem;
+    font-size: clamp(1.75rem, 9vw, 2.2rem);
   }
 
   .hero-subtitle,
   .section-copy p,
-  .message-panel p {
+  .message-panel p,
+  .timeline-list p,
+  .gift-shell p:not(.eyebrow),
+  .gift-message p,
+  .section-heading p:not(.eyebrow) {
     font-size: 1.05rem;
     line-height: 1.7;
+  }
+
+  .hero-actions,
+  .surprise-actions {
+    display: grid;
+    grid-template-columns: 1fr;
+  }
+
+  .love-button,
+  .quiet-link {
+    width: 100%;
+  }
+
+  .hero-metrics {
+    grid-template-columns: 1fr;
+    gap: 0.6rem;
+    margin-top: 2rem;
+  }
+
+  .hero-metrics article {
+    min-height: auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 0.8rem 1rem;
+  }
+
+  .hero-metrics strong {
+    font-size: 1.55rem;
+  }
+
+  .hero-metrics span {
+    margin-top: 0;
+    text-align: right;
   }
 
   .section-copy {
@@ -1262,6 +1403,10 @@ footer p {
 
   .message-panel {
     padding: 1.25rem;
+  }
+
+  .message-panel p {
+    overflow-wrap: anywhere;
   }
 
   .quality-strip,
@@ -1275,6 +1420,7 @@ footer p {
 
   .carousel-wish {
     font-size: 1.45rem;
+    min-height: 7.5rem;
   }
 
   .gift-shell {
@@ -1291,8 +1437,29 @@ footer p {
     font-size: 1.45rem;
   }
 
+  .clock-grid article {
+    min-height: auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+  }
+
+  .clock-grid strong {
+    font-size: 2.25rem;
+  }
+
+  .clock-grid span {
+    margin-top: 0;
+    text-align: right;
+  }
+
   .wish-form-row {
     grid-template-columns: 1fr;
+  }
+
+  .wish-form {
+    padding: 1rem;
   }
 
   .quality-strip article {
@@ -1312,6 +1479,29 @@ footer p {
     padding: 2rem 1rem;
   }
 
+  .gift-box {
+    min-height: 190px;
+    transform: scale(0.86);
+    transform-origin: center;
+  }
+
+  .memory-lightbox {
+    width: calc(100% - 1rem);
+    max-height: calc(100svh - 1rem);
+  }
+
+  .memory-lightbox img {
+    max-height: 48svh;
+  }
+
+  .memory-lightbox h3 {
+    font-size: 1.35rem;
+  }
+
+  .lightbox-close {
+    min-height: 2.6rem;
+  }
+
   .wish-card {
     min-height: 165px;
   }
@@ -1319,6 +1509,70 @@ footer p {
   .wish-card p {
     margin-top: 2.2rem;
     font-size: 1.35rem;
+  }
+
+  footer {
+    padding-bottom: 5.8rem;
+  }
+}
+
+@media (max-width: 380px) {
+  .mobile-nav a {
+    font-size: 0.76rem;
+  }
+
+  .eyebrow {
+    font-size: 0.72rem;
+  }
+
+  .music-toggle {
+    min-width: 6.8rem;
+    font-size: 0.82rem;
+  }
+
+  .hero-metrics span,
+  .clock-grid span {
+    font-size: 0.82rem;
+  }
+}
+
+@media print {
+  .top-nav,
+  .mobile-nav,
+  .sound-dock,
+  .intro-curtain,
+  .scroll-progress,
+  #goldCanvas,
+  .hero,
+  .memories,
+  .wish-studio,
+  .final-surprise,
+  .secret-gift,
+  footer {
+    display: none !important;
+  }
+
+  body {
+    color: #111;
+    background: #fff;
+  }
+
+  .section {
+    width: 100%;
+    padding: 1rem 0;
+  }
+
+  .message-panel {
+    color: #111;
+    border: 0;
+    box-shadow: none;
+    background: #fff;
+  }
+
+  .message-panel p,
+  .message-panel span,
+  h2 {
+    color: #111;
   }
 }
 
