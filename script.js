@@ -1,17 +1,41 @@
 const canvas = document.querySelector("#goldCanvas");
 const ctx = canvas.getContext("2d");
+const body = document.body;
+const curtain = document.querySelector(".intro-curtain");
+const openSurpriseButton = document.querySelector(".open-surprise");
+const progressBar = document.querySelector(".scroll-progress");
 const revealItems = document.querySelectorAll(".reveal");
 const loveButton = document.querySelector(".love-button");
 const musicToggle = document.querySelector(".music-toggle");
+const visualizer = document.querySelector(".visualizer");
 const confettiButton = document.querySelector(".confetti-button");
+const shareButton = document.querySelector(".share-button");
+const memoryCards = document.querySelectorAll(".memory-card");
+const lightbox = document.querySelector(".memory-lightbox");
+const lightboxImage = lightbox.querySelector("img");
+const lightboxTitle = lightbox.querySelector("h3");
+const lightboxText = lightbox.querySelector("p");
+const lightboxClose = document.querySelector(".lightbox-close");
+const counters = document.querySelectorAll("[data-count]");
+const typewriter = document.querySelector(".typewriter");
+const wishForm = document.querySelector(".wish-form");
+const wishInput = document.querySelector("#wishInput");
+const savedWishes = document.querySelector(".saved-wishes");
 
 let particles = [];
 let audioContext;
 let masterGain;
 let musicTimer;
 let isMusicPlaying = false;
+let countersStarted = false;
+let typewriterStarted = false;
 
 const notes = [261.63, 329.63, 392.0, 493.88, 523.25, 392.0, 329.63, 293.66];
+const starterWishes = [
+  "May this year bring peace to your heart and pride to your smile.",
+  "May your kindness return to you in beautiful ways.",
+  "May every day remind you how deeply you are loved.",
+];
 
 function sizeCanvas() {
   const pixelRatio = Math.min(window.devicePixelRatio || 1, 2);
@@ -82,6 +106,14 @@ const observer = new IntersectionObserver(
     entries.forEach((entry) => {
       if (entry.isIntersecting) {
         entry.target.classList.add("visible");
+        if (entry.target.querySelector("[data-count]") && !countersStarted) {
+          countersStarted = true;
+          animateCounters();
+        }
+        if (entry.target.querySelector(".typewriter") && !typewriterStarted) {
+          typewriterStarted = true;
+          runTypewriter();
+        }
         observer.unobserve(entry.target);
       }
     });
@@ -90,6 +122,43 @@ const observer = new IntersectionObserver(
 );
 
 revealItems.forEach((item) => observer.observe(item));
+
+function updateProgress() {
+  const scrollable = document.documentElement.scrollHeight - window.innerHeight;
+  const progress = scrollable > 0 ? (window.scrollY / scrollable) * 100 : 0;
+  progressBar.style.width = `${Math.min(progress, 100)}%`;
+}
+
+function animateCounters() {
+  counters.forEach((counter) => {
+    const target = Number(counter.dataset.count);
+    const duration = 1300;
+    const startedAt = performance.now();
+
+    function tick(now) {
+      const progress = Math.min((now - startedAt) / duration, 1);
+      const eased = 1 - Math.pow(1 - progress, 3);
+      counter.textContent = Math.round(target * eased);
+
+      if (progress < 1) {
+        requestAnimationFrame(tick);
+      }
+    }
+
+    requestAnimationFrame(tick);
+  });
+}
+
+function runTypewriter() {
+  const text = typewriter.dataset.typewriter;
+  typewriter.textContent = "";
+
+  [...text].forEach((letter, index) => {
+    window.setTimeout(() => {
+      typewriter.textContent += letter;
+    }, index * 42);
+  });
+}
 
 function launchHeart(x, y) {
   const heart = document.createElement("span");
@@ -165,6 +234,7 @@ function startMusic() {
   }
 
   isMusicPlaying = true;
+  visualizer.classList.add("playing");
   musicToggle.textContent = "Pause Music";
   musicToggle.setAttribute("aria-pressed", "true");
   playPhrase();
@@ -173,6 +243,7 @@ function startMusic() {
 
 function stopMusic() {
   isMusicPlaying = false;
+  visualizer.classList.remove("playing");
   musicToggle.textContent = "Play Music";
   musicToggle.setAttribute("aria-pressed", "false");
   window.clearInterval(musicTimer);
@@ -187,11 +258,67 @@ function stopMusic() {
   }
 }
 
+function renderWishes() {
+  const wishes = JSON.parse(localStorage.getItem("mavayyaWishes") || "null") || starterWishes;
+  savedWishes.innerHTML = "";
+
+  wishes.slice(-6).forEach((wish, index) => {
+    const card = document.createElement("article");
+    const number = document.createElement("span");
+    const text = document.createElement("p");
+
+    number.textContent = `Blessing ${index + 1}`;
+    text.textContent = wish;
+    card.append(number, text);
+    savedWishes.appendChild(card);
+  });
+}
+
+function saveWish(wish) {
+  const wishes = JSON.parse(localStorage.getItem("mavayyaWishes") || "null") || starterWishes;
+  wishes.push(wish);
+  localStorage.setItem("mavayyaWishes", JSON.stringify(wishes.slice(-6)));
+  renderWishes();
+}
+
+function openMemory(card) {
+  const image = card.querySelector("img");
+  lightboxImage.src = image.src;
+  lightboxImage.alt = image.alt;
+  lightboxTitle.textContent = card.dataset.title;
+  lightboxText.textContent = card.dataset.note;
+  lightbox.showModal();
+}
+
+openSurpriseButton.addEventListener("click", () => {
+  curtain.classList.add("hidden");
+  body.classList.add("surprise-opened");
+  startMusic();
+});
+
 musicToggle.addEventListener("click", () => {
   if (isMusicPlaying) {
     stopMusic();
   } else {
     startMusic();
+  }
+});
+
+memoryCards.forEach((card) => {
+  card.addEventListener("click", () => openMemory(card));
+  card.addEventListener("keydown", (event) => {
+    if (event.key === "Enter" || event.key === " ") {
+      event.preventDefault();
+      openMemory(card);
+    }
+  });
+});
+
+lightboxClose.addEventListener("click", () => lightbox.close());
+
+lightbox.addEventListener("click", (event) => {
+  if (event.target === lightbox) {
+    lightbox.close();
   }
 });
 
@@ -213,6 +340,20 @@ loveButton.addEventListener("click", (event) => {
   }
 });
 
+wishForm.addEventListener("submit", (event) => {
+  event.preventDefault();
+  const wish = wishInput.value.trim();
+
+  if (!wish) {
+    wishInput.focus();
+    return;
+  }
+
+  saveWish(wish);
+  wishInput.value = "";
+  launchConfetti();
+});
+
 confettiButton.addEventListener("click", () => {
   launchConfetti();
 
@@ -227,7 +368,35 @@ confettiButton.addEventListener("click", () => {
   }
 });
 
-window.addEventListener("resize", sizeCanvas);
+shareButton.addEventListener("click", async () => {
+  const shareData = {
+    title: "Happy Birthday Mavayya",
+    text: "A special birthday surprise made with love.",
+    url: window.location.href,
+  };
 
+  try {
+    if (navigator.share) {
+      await navigator.share(shareData);
+    } else if (navigator.clipboard) {
+      await navigator.clipboard.writeText(window.location.href);
+      shareButton.textContent = "Link Copied";
+      window.setTimeout(() => {
+        shareButton.textContent = "Share Love";
+      }, 1800);
+    }
+  } catch (error) {
+    shareButton.textContent = "Share Ready";
+    window.setTimeout(() => {
+      shareButton.textContent = "Share Love";
+    }, 1800);
+  }
+});
+
+window.addEventListener("resize", sizeCanvas);
+window.addEventListener("scroll", updateProgress, { passive: true });
+
+renderWishes();
+updateProgress();
 sizeCanvas();
 drawParticles();

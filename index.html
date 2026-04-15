@@ -8,6 +8,19 @@
   </head>
   <body>
     <canvas id="goldCanvas" aria-hidden="true"></canvas>
+    <div class="scroll-progress" aria-hidden="true"></div>
+
+    <div class="intro-curtain" role="dialog" aria-labelledby="curtain-title" aria-modal="true">
+      <div class="curtain-panel">
+        <p class="eyebrow">A golden surprise is ready</p>
+        <h2 id="curtain-title">For Mavayya, with love</h2>
+        <p>
+          Open this little celebration and let the wishes, memories, and music
+          unfold slowly.
+        </p>
+        <button class="open-surprise" type="button">Open Surprise</button>
+      </div>
+    </div>
 
     <nav class="top-nav" aria-label="Birthday sections">
       <a href="#top">Home</a>
@@ -15,11 +28,20 @@
       <a href="#memories">Memories</a>
       <a href="#message">Message</a>
       <a href="#wishes">Wishes</a>
+      <a href="#wish-studio">Blessing</a>
     </nav>
 
-    <button class="music-toggle" type="button" aria-pressed="false">
-      Play Music
-    </button>
+    <div class="sound-dock" aria-label="Music controls">
+      <div class="visualizer" aria-hidden="true">
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+      <button class="music-toggle" type="button" aria-pressed="false">
+        Play Music
+      </button>
+    </div>
 
     <main>
       <section class="hero section" id="top">
@@ -32,6 +54,20 @@
           <div class="hero-actions">
             <button class="love-button" type="button">Send Love ❤️</button>
             <a class="quiet-link" href="#message">Read my message</a>
+          </div>
+          <div class="hero-metrics" aria-label="Birthday blessings">
+            <article>
+              <strong data-count="100">0</strong>
+              <span>Percent love</span>
+            </article>
+            <article>
+              <strong data-count="365">0</strong>
+              <span>Days of blessings</span>
+            </article>
+            <article>
+              <strong data-count="1">0</strong>
+              <span>Special Mavayya</span>
+            </article>
           </div>
         </div>
       </section>
@@ -48,6 +84,28 @@
             is blessed by your love, your wisdom, and the quiet way you make
             people feel protected.
           </p>
+        </div>
+      </section>
+
+      <section class="signature section reveal" aria-labelledby="signature-title">
+        <div class="section-heading">
+          <p class="eyebrow">Your golden signature</p>
+          <h2 id="signature-title">The Little Things We Remember</h2>
+        </div>
+
+        <div class="signature-grid">
+          <article>
+            <span>01</span>
+            <p>Your calm advice when everything feels confusing.</p>
+          </article>
+          <article>
+            <span>02</span>
+            <p>Your smile that makes family moments feel complete.</p>
+          </article>
+          <article>
+            <span>03</span>
+            <p>Your way of helping without ever making it feel heavy.</p>
+          </article>
         </div>
       </section>
 
@@ -84,7 +142,13 @@
         </div>
 
         <div class="gallery" aria-label="Birthday memory gallery">
-          <figure>
+          <figure
+            class="memory-card"
+            tabindex="0"
+            role="button"
+            data-title="Unforgettable moments"
+            data-note="The laughter that stays with us"
+          >
             <img
               src="https://images.pexels.com/photos/5775053/pexels-photo-5775053.jpeg?auto=compress&cs=tinysrgb&w=1200"
               alt="A warm family gathering around a celebration table"
@@ -94,7 +158,13 @@
               <small>The laughter that stays with us</small>
             </figcaption>
           </figure>
-          <figure>
+          <figure
+            class="memory-card"
+            tabindex="0"
+            role="button"
+            data-title="Family time"
+            data-note="Where every heart feels at home"
+          >
             <img
               src="https://images.pexels.com/photos/5638732/pexels-photo-5638732.jpeg?auto=compress&cs=tinysrgb&w=1200"
               alt="Family sharing a happy celebration at home"
@@ -104,7 +174,13 @@
               <small>Where every heart feels at home</small>
             </figcaption>
           </figure>
-          <figure>
+          <figure
+            class="memory-card"
+            tabindex="0"
+            role="button"
+            data-title="Happy days"
+            data-note="Golden moments, gentle smiles"
+          >
             <img
               src="https://images.pexels.com/photos/2072181/pexels-photo-2072181.jpeg?auto=compress&cs=tinysrgb&w=1200"
               alt="Birthday candles glowing warmly in the dark"
@@ -178,6 +254,43 @@
         </div>
       </section>
 
+      <section class="promise section reveal" aria-labelledby="promise-title">
+        <div class="promise-copy">
+          <p class="eyebrow">A nephew's promise</p>
+          <h2 id="promise-title">I Will Always Carry Your Love Forward</h2>
+          <p class="typewriter" data-typewriter="Your care, your words, and your blessings will always guide me.">
+            Your care, your words, and your blessings will always guide me.
+          </p>
+        </div>
+      </section>
+
+      <section class="wish-studio section reveal" id="wish-studio" aria-labelledby="studio-title">
+        <div class="section-heading">
+          <p class="eyebrow">Make the page personal</p>
+          <h2 id="studio-title">Golden Blessing Studio</h2>
+          <p>
+            Add one more wish for Mavayya. It stays on this device and makes
+            the surprise feel alive each time it opens.
+          </p>
+        </div>
+
+        <form class="wish-form">
+          <label for="wishInput">Write a blessing</label>
+          <div class="wish-form-row">
+            <input
+              id="wishInput"
+              name="wish"
+              type="text"
+              maxlength="90"
+              placeholder="Example: May every dream become a proud moment"
+            />
+            <button type="submit">Add Wish</button>
+          </div>
+        </form>
+
+        <div class="saved-wishes" aria-live="polite"></div>
+      </section>
+
       <section class="final-surprise section reveal" aria-labelledby="surprise-title">
         <div class="surprise-box">
           <p class="eyebrow">One more thing</p>
@@ -187,10 +300,22 @@
             fully say. Your happiness matters to us, your smile matters to us,
             and your presence is one of the greatest gifts in our family.
           </p>
-          <button class="confetti-button" type="button">Celebrate Mavayya 🎊</button>
+          <div class="surprise-actions">
+            <button class="confetti-button" type="button">Celebrate Mavayya 🎊</button>
+            <button class="share-button" type="button">Share Love</button>
+          </div>
         </div>
       </section>
     </main>
+
+    <dialog class="memory-lightbox">
+      <button class="lightbox-close" type="button" aria-label="Close memory">Close</button>
+      <img src="" alt="" />
+      <div>
+        <h3></h3>
+        <p></p>
+      </div>
+    </dialog>
 
     <footer>
       <p>Made with <span class="heart">❤️</span> for my Mavayya</p>
