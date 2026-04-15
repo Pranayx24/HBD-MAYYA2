@@ -29,6 +29,7 @@
       <a href="#message">Message</a>
       <a href="#wishes">Wishes</a>
       <a href="#wish-studio">Blessing</a>
+      <a href="#gift">Gift</a>
     </nav>
 
     <div class="sound-dock" aria-label="Music controls">
@@ -232,6 +233,32 @@
         </div>
       </section>
 
+      <section class="blessing-clock section reveal" aria-labelledby="clock-title">
+        <div class="section-heading">
+          <p class="eyebrow">Every moment is a blessing</p>
+          <h2 id="clock-title">A Year Filled With Love</h2>
+        </div>
+
+        <div class="clock-grid" aria-label="Birthday blessing clock">
+          <article>
+            <strong class="clock-days">365</strong>
+            <span>days of strength</span>
+          </article>
+          <article>
+            <strong class="clock-hours">24</strong>
+            <span>hours of peace</span>
+          </article>
+          <article>
+            <strong class="clock-minutes">60</strong>
+            <span>minutes of smiles</span>
+          </article>
+          <article>
+            <strong class="clock-seconds">60</strong>
+            <span>seconds of love</span>
+          </article>
+        </div>
+      </section>
+
       <section class="wishes section reveal" id="wishes" aria-labelledby="wishes-title">
         <div class="section-heading">
           <p class="eyebrow">Blessings for today and always</p>
@@ -254,6 +281,17 @@
         </div>
       </section>
 
+      <section class="wish-carousel section reveal" aria-labelledby="carousel-title">
+        <div class="carousel-panel">
+          <p class="eyebrow">A wish that changes with time</p>
+          <h2 id="carousel-title">Golden Words For You</h2>
+          <p class="carousel-wish">
+            You are loved in more ways than one page can hold.
+          </p>
+          <button class="next-wish-button" type="button">Next Wish</button>
+        </div>
+      </section>
+
       <section class="promise section reveal" aria-labelledby="promise-title">
         <div class="promise-copy">
           <p class="eyebrow">A nephew's promise</p>
@@ -261,6 +299,7 @@
           <p class="typewriter" data-typewriter="Your care, your words, and your blessings will always guide me.">
             Your care, your words, and your blessings will always guide me.
           </p>
+          <button class="print-letter-button" type="button">Print This Letter</button>
         </div>
       </section>
 
@@ -291,6 +330,32 @@
         <div class="saved-wishes" aria-live="polite"></div>
       </section>
 
+      <section class="secret-gift section reveal" id="gift" aria-labelledby="gift-title">
+        <div class="gift-shell">
+          <div>
+            <p class="eyebrow">A secret just for you</p>
+            <h2 id="gift-title">Open The Golden Gift</h2>
+            <p>
+              Behind this box is one more reminder of how much your love,
+              guidance, and blessings mean to me.
+            </p>
+          </div>
+          <button class="gift-box" type="button" aria-expanded="false">
+            <span class="gift-lid"></span>
+            <span class="gift-body"></span>
+            <span class="gift-ribbon"></span>
+            <strong>Open</strong>
+          </button>
+        </div>
+        <div class="gift-message" hidden>
+          <p>
+            Mavayya, my real gift is this promise: I will always respect your
+            love, remember your guidance, and make you proud through the person
+            I become.
+          </p>
+        </div>
+      </section>
+
       <section class="final-surprise section reveal" aria-labelledby="surprise-title">
         <div class="surprise-box">
           <p class="eyebrow">One more thing</p>
@@ -316,6 +381,8 @@
         <p></p>
       </div>
     </dialog>
+
+    <div class="toast" role="status" aria-live="polite"></div>
 
     <footer>
       <p>Made with <span class="heart">❤️</span> for my Mavayya</p>

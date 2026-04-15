@@ -10,6 +10,16 @@ const musicToggle = document.querySelector(".music-toggle");
 const visualizer = document.querySelector(".visualizer");
 const confettiButton = document.querySelector(".confetti-button");
 const shareButton = document.querySelector(".share-button");
+const nextWishButton = document.querySelector(".next-wish-button");
+const carouselWish = document.querySelector(".carousel-wish");
+const printLetterButton = document.querySelector(".print-letter-button");
+const giftBox = document.querySelector(".gift-box");
+const giftMessage = document.querySelector(".gift-message");
+const toast = document.querySelector(".toast");
+const clockDays = document.querySelector(".clock-days");
+const clockHours = document.querySelector(".clock-hours");
+const clockMinutes = document.querySelector(".clock-minutes");
+const clockSeconds = document.querySelector(".clock-seconds");
 const memoryCards = document.querySelectorAll(".memory-card");
 const lightbox = document.querySelector(".memory-lightbox");
 const lightboxImage = lightbox.querySelector("img");
@@ -36,6 +46,24 @@ const starterWishes = [
   "May your kindness return to you in beautiful ways.",
   "May every day remind you how deeply you are loved.",
 ];
+const goldenWishes = [
+  "Your love is a blessing our family carries with pride.",
+  "May your path always be bright, peaceful, and full of respect.",
+  "Every good thing you gave us should return to you many times.",
+  "May your smile stay strong through every season of life.",
+  "You are not just celebrated today; you are treasured always.",
+  "May your heart feel the same safety you give everyone else.",
+];
+let wishIndex = 0;
+
+function showToast(message) {
+  toast.textContent = message;
+  toast.classList.add("show");
+  window.clearTimeout(showToast.timer);
+  showToast.timer = window.setTimeout(() => {
+    toast.classList.remove("show");
+  }, 2200);
+}
 
 function sizeCanvas() {
   const pixelRatio = Math.min(window.devicePixelRatio || 1, 2);
@@ -129,6 +157,17 @@ function updateProgress() {
   progressBar.style.width = `${Math.min(progress, 100)}%`;
 }
 
+function updateBlessingClock() {
+  const now = new Date();
+  const startOfYear = new Date(now.getFullYear(), 0, 1);
+  const dayOfYear = Math.floor((now - startOfYear) / 86400000) + 1;
+
+  clockDays.textContent = Math.max(1, 366 - dayOfYear);
+  clockHours.textContent = String(23 - now.getHours()).padStart(2, "0");
+  clockMinutes.textContent = String(59 - now.getMinutes()).padStart(2, "0");
+  clockSeconds.textContent = String(59 - now.getSeconds()).padStart(2, "0");
+}
+
 function animateCounters() {
   counters.forEach((counter) => {
     const target = Number(counter.dataset.count);
@@ -184,6 +223,32 @@ function launchConfetti() {
       document.body.appendChild(piece);
       window.setTimeout(() => piece.remove(), 4200);
     }, index * 16);
+  }
+}
+
+function launchFireworks() {
+  const colors = ["#f6d77a", "#d8ad47", "#fff7e8", "#e66d86", "#89c6a0"];
+
+  for (let burst = 0; burst < 4; burst += 1) {
+    const originX = window.innerWidth * (0.2 + Math.random() * 0.6);
+    const originY = window.innerHeight * (0.2 + Math.random() * 0.35);
+
+    for (let index = 0; index < 28; index += 1) {
+      window.setTimeout(() => {
+        const spark = document.createElement("span");
+        const angle = (Math.PI * 2 * index) / 28;
+        const distance = 70 + Math.random() * 95;
+
+        spark.className = "firework";
+        spark.style.left = `${originX}px`;
+        spark.style.top = `${originY}px`;
+        spark.style.background = colors[Math.floor(Math.random() * colors.length)];
+        spark.style.setProperty("--x", `${Math.cos(angle) * distance}px`);
+        spark.style.setProperty("--y", `${Math.sin(angle) * distance}px`);
+        document.body.appendChild(spark);
+        window.setTimeout(() => spark.remove(), 950);
+      }, burst * 260);
+    }
   }
 }
 
@@ -356,6 +421,7 @@ wishForm.addEventListener("submit", (event) => {
 
 confettiButton.addEventListener("click", () => {
   launchConfetti();
+  launchFireworks();
 
   for (let index = 0; index < 12; index += 1) {
     window.setTimeout(() => {
@@ -365,6 +431,31 @@ confettiButton.addEventListener("click", () => {
 
   if (!isMusicPlaying) {
     startMusic();
+  }
+});
+
+nextWishButton.addEventListener("click", () => {
+  wishIndex = (wishIndex + 1) % goldenWishes.length;
+  carouselWish.classList.add("changing");
+  window.setTimeout(() => {
+    carouselWish.textContent = goldenWishes[wishIndex];
+    carouselWish.classList.remove("changing");
+  }, 260);
+});
+
+printLetterButton.addEventListener("click", () => {
+  showToast("Opening print dialog for the birthday letter");
+  window.print();
+});
+
+giftBox.addEventListener("click", () => {
+  const isOpen = giftBox.classList.toggle("opened");
+  giftBox.setAttribute("aria-expanded", String(isOpen));
+  giftMessage.hidden = !isOpen;
+
+  if (isOpen) {
+    launchFireworks();
+    showToast("Golden gift opened with love");
   }
 });
 
@@ -398,5 +489,7 @@ window.addEventListener("scroll", updateProgress, { passive: true });
 
 renderWishes();
 updateProgress();
+updateBlessingClock();
+window.setInterval(updateBlessingClock, 1000);
 sizeCanvas();
 drawParticles();
