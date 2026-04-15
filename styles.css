@@ -17,6 +17,7 @@
 
 html {
   scroll-behavior: smooth;
+  overflow-x: hidden;
 }
 
 body {
@@ -31,6 +32,8 @@ body {
   font-family: "Georgia", "Times New Roman", serif;
   letter-spacing: 0;
   overflow-x: hidden;
+  padding-bottom: env(safe-area-inset-bottom);
+  -webkit-text-size-adjust: 100%;
 }
 
 body::before {
@@ -73,6 +76,7 @@ button,
 a,
 input {
   -webkit-tap-highlight-color: rgba(246, 215, 122, 0.22);
+  touch-action: manipulation;
 }
 
 img {
@@ -182,8 +186,8 @@ img {
 
 .sound-dock {
   position: fixed;
-  top: 1rem;
-  right: 1rem;
+  top: max(1rem, env(safe-area-inset-top));
+  right: max(1rem, env(safe-area-inset-right));
   z-index: 10;
   display: flex;
   gap: 0.6rem;
@@ -1150,6 +1154,14 @@ figcaption small {
   box-shadow: 0 2rem 6rem rgba(0, 0, 0, 0.78);
 }
 
+.memory-lightbox.fallback-open {
+  position: fixed;
+  inset: 50% auto auto 50%;
+  z-index: 70;
+  display: block;
+  transform: translate(-50%, -50%);
+}
+
 .memory-lightbox::backdrop {
   background: rgba(0, 0, 0, 0.78);
   backdrop-filter: blur(10px);
@@ -1327,10 +1339,10 @@ footer p {
     position: fixed;
     left: 0.75rem;
     right: 0.75rem;
-    bottom: 0.75rem;
+    bottom: max(0.75rem, env(safe-area-inset-bottom));
     z-index: 25;
     display: grid;
-    grid-template-columns: repeat(4, minmax(0, 1fr));
+    grid-template-columns: repeat(5, minmax(0, 1fr));
     gap: 0.25rem;
     padding: 0.35rem;
     border: 1px solid var(--line);
@@ -1347,7 +1359,7 @@ footer p {
     color: var(--muted);
     border-radius: 6px;
     font-family: "Segoe UI", Arial, sans-serif;
-    font-size: 0.82rem;
+    font-size: 0.78rem;
     font-weight: 800;
     text-decoration: none;
   }
@@ -1384,7 +1396,7 @@ footer p {
   }
 
   footer {
-    padding-bottom: 6rem;
+    padding-bottom: calc(6rem + env(safe-area-inset-bottom));
   }
 
   figure,
@@ -1407,7 +1419,7 @@ footer p {
 
   .intro-curtain {
     align-items: end;
-    padding: 0.75rem 0.75rem 5.4rem;
+    padding: 0.75rem 0.75rem calc(5.4rem + env(safe-area-inset-bottom));
   }
 
   .curtain-panel {
@@ -1435,8 +1447,8 @@ footer p {
   }
 
   .sound-dock {
-    top: 0.75rem;
-    right: 0.75rem;
+    top: max(0.75rem, env(safe-area-inset-top));
+    right: max(0.75rem, env(safe-area-inset-right));
   }
 
   .visualizer {
@@ -1451,9 +1463,9 @@ footer p {
   }
 
   .mobile-nav {
-    left: 0.5rem;
-    right: 0.5rem;
-    bottom: 0.5rem;
+    left: max(0.5rem, env(safe-area-inset-left));
+    right: max(0.5rem, env(safe-area-inset-right));
+    bottom: max(0.5rem, env(safe-area-inset-bottom));
   }
 
   .section {
@@ -1465,7 +1477,7 @@ footer p {
     min-height: 90svh;
     align-items: end;
     padding-top: 5.8rem;
-    padding-bottom: 2rem;
+    padding-bottom: calc(2rem + env(safe-area-inset-bottom));
   }
 
   h1 {
@@ -1627,6 +1639,7 @@ footer p {
   .memory-lightbox {
     width: calc(100% - 1rem);
     max-height: calc(100svh - 1rem);
+    overflow-y: auto;
   }
 
   .memory-lightbox img {
@@ -1638,6 +1651,8 @@ footer p {
   }
 
   .lightbox-close {
+    top: max(0.75rem, env(safe-area-inset-top));
+    right: max(0.75rem, env(safe-area-inset-right));
     min-height: 2.6rem;
   }
 
@@ -1651,7 +1666,7 @@ footer p {
   }
 
   footer {
-    padding-bottom: 5.8rem;
+    padding-bottom: calc(5.8rem + env(safe-area-inset-bottom));
   }
 }
 

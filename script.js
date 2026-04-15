@@ -90,7 +90,7 @@ function sizeCanvas() {
   canvas.style.height = `${window.innerHeight}px`;
   ctx.setTransform(pixelRatio, 0, 0, pixelRatio, 0, 0);
 
-  const count = window.innerWidth < 700 ? 56 : 96;
+  const count = window.innerWidth < 520 ? 32 : window.innerWidth < 700 ? 48 : 96;
   particles = Array.from({ length: count }, createParticle);
 }
 
@@ -228,8 +228,9 @@ function launchHeart(x, y) {
 
 function launchConfetti() {
   const colors = ["#f6d77a", "#d8ad47", "#fff7e8", "#e66d86", "#89c6a0"];
+  const total = window.innerWidth < 560 ? 42 : 90;
 
-  for (let index = 0; index < 90; index += 1) {
+  for (let index = 0; index < total; index += 1) {
     window.setTimeout(() => {
       const piece = document.createElement("span");
       piece.className = "confetti-piece";
@@ -245,15 +246,17 @@ function launchConfetti() {
 
 function launchFireworks() {
   const colors = ["#f6d77a", "#d8ad47", "#fff7e8", "#e66d86", "#89c6a0"];
+  const bursts = window.innerWidth < 560 ? 2 : 4;
+  const sparks = window.innerWidth < 560 ? 16 : 28;
 
-  for (let burst = 0; burst < 4; burst += 1) {
+  for (let burst = 0; burst < bursts; burst += 1) {
     const originX = window.innerWidth * (0.2 + Math.random() * 0.6);
     const originY = window.innerHeight * (0.2 + Math.random() * 0.35);
 
-    for (let index = 0; index < 28; index += 1) {
+    for (let index = 0; index < sparks; index += 1) {
       window.setTimeout(() => {
         const spark = document.createElement("span");
-        const angle = (Math.PI * 2 * index) / 28;
+        const angle = (Math.PI * 2 * index) / sparks;
         const distance = 70 + Math.random() * 95;
 
         spark.className = "firework";
@@ -341,7 +344,7 @@ function stopMusic() {
 }
 
 function renderWishes() {
-  const wishes = JSON.parse(localStorage.getItem("mavayyaWishes") || "null") || starterWishes;
+  const wishes = readSavedWishes();
   savedWishes.innerHTML = "";
 
   wishes.slice(-6).forEach((wish, index) => {
@@ -357,10 +360,22 @@ function renderWishes() {
 }
 
 function saveWish(wish) {
-  const wishes = JSON.parse(localStorage.getItem("mavayyaWishes") || "null") || starterWishes;
+  const wishes = readSavedWishes();
   wishes.push(wish);
-  localStorage.setItem("mavayyaWishes", JSON.stringify(wishes.slice(-6)));
+  try {
+    localStorage.setItem("mavayyaWishes", JSON.stringify(wishes.slice(-6)));
+  } catch (error) {
+    showToast("Wish added for this visit");
+  }
   renderWishes();
+}
+
+function readSavedWishes() {
+  try {
+    return JSON.parse(localStorage.getItem("mavayyaWishes") || "null") || starterWishes;
+  } catch (error) {
+    return starterWishes;
+  }
 }
 
 function openMemory(card) {
@@ -369,7 +384,11 @@ function openMemory(card) {
   lightboxImage.alt = image.alt;
   lightboxTitle.textContent = card.dataset.title;
   lightboxText.textContent = card.dataset.note;
-  lightbox.showModal();
+  if (typeof lightbox.showModal === "function") {
+    lightbox.showModal();
+  } else {
+    lightbox.classList.add("fallback-open");
+  }
 }
 
 openSurpriseButton.addEventListener("click", () => {
@@ -396,11 +415,19 @@ memoryCards.forEach((card) => {
   });
 });
 
-lightboxClose.addEventListener("click", () => lightbox.close());
+lightboxClose.addEventListener("click", () => {
+  if (typeof lightbox.close === "function") {
+    lightbox.close();
+  }
+  lightbox.classList.remove("fallback-open");
+});
 
 lightbox.addEventListener("click", (event) => {
   if (event.target === lightbox) {
-    lightbox.close();
+    if (typeof lightbox.close === "function") {
+      lightbox.close();
+    }
+    lightbox.classList.remove("fallback-open");
   }
 });
 

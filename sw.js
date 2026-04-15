@@ -1,5 +1,12 @@
 const CACHE_NAME = "mavayya-birthday-v1";
-const ASSETS = ["./", "./index.html", "./styles.css", "./script.js", "./manifest.webmanifest"];
+const ASSETS = [
+  "./",
+  "./index.html",
+  "./styles.css",
+  "./script.js",
+  "./manifest.webmanifest",
+  "./icon.svg",
+];
 
 self.addEventListener("install", (event) => {
   event.waitUntil(
