@@ -9,6 +9,14 @@
   <body>
     <canvas id="goldCanvas" aria-hidden="true"></canvas>
 
+    <nav class="top-nav" aria-label="Birthday sections">
+      <a href="#top">Home</a>
+      <a href="#about">Love</a>
+      <a href="#memories">Memories</a>
+      <a href="#message">Message</a>
+      <a href="#wishes">Wishes</a>
+    </nav>
+
     <button class="music-toggle" type="button" aria-pressed="false">
       Play Music
     </button>
@@ -21,11 +29,14 @@
           <p class="hero-subtitle">
             A special surprise made with love by your nephew
           </p>
-          <button class="love-button" type="button">Send Love ❤️</button>
+          <div class="hero-actions">
+            <button class="love-button" type="button">Send Love ❤️</button>
+            <a class="quiet-link" href="#message">Read my message</a>
+          </div>
         </div>
       </section>
 
-      <section class="about section reveal" aria-labelledby="about-title">
+      <section class="about section reveal" id="about" aria-labelledby="about-title">
         <div class="section-copy">
           <p class="eyebrow">With gratitude</p>
           <h2 id="about-title">The Man We Love ❤️</h2>
@@ -40,7 +51,33 @@
         </div>
       </section>
 
-      <section class="memories section reveal" aria-labelledby="memories-title">
+      <section class="qualities section reveal" aria-labelledby="qualities-title">
+        <div class="section-heading">
+          <p class="eyebrow">What makes you special</p>
+          <h2 id="qualities-title">Why You Mean So Much</h2>
+        </div>
+
+        <div class="quality-strip">
+          <article>
+            <strong>Protector</strong>
+            <p>You make everyone around you feel safe, heard, and cared for.</p>
+          </article>
+          <article>
+            <strong>Guide</strong>
+            <p>Your words stay in the heart and help us choose the right path.</p>
+          </article>
+          <article>
+            <strong>Inspiration</strong>
+            <p>Your strength, kindness, and patience teach us every day.</p>
+          </article>
+          <article>
+            <strong>Family</strong>
+            <p>Your love turns ordinary days into memories we never forget.</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="memories section reveal" id="memories" aria-labelledby="memories-title">
         <div class="section-heading">
           <p class="eyebrow">Moments close to the heart</p>
           <h2 id="memories-title">Beautiful Memories 📸</h2>
@@ -52,26 +89,35 @@
               src="https://images.pexels.com/photos/5775053/pexels-photo-5775053.jpeg?auto=compress&cs=tinysrgb&w=1200"
               alt="A warm family gathering around a celebration table"
             />
-            <figcaption>Unforgettable moments</figcaption>
+            <figcaption>
+              <span>Unforgettable moments</span>
+              <small>The laughter that stays with us</small>
+            </figcaption>
           </figure>
           <figure>
             <img
               src="https://images.pexels.com/photos/5638732/pexels-photo-5638732.jpeg?auto=compress&cs=tinysrgb&w=1200"
               alt="Family sharing a happy celebration at home"
             />
-            <figcaption>Family time</figcaption>
+            <figcaption>
+              <span>Family time</span>
+              <small>Where every heart feels at home</small>
+            </figcaption>
           </figure>
           <figure>
             <img
               src="https://images.pexels.com/photos/2072181/pexels-photo-2072181.jpeg?auto=compress&cs=tinysrgb&w=1200"
               alt="Birthday candles glowing warmly in the dark"
             />
-            <figcaption>Happy days</figcaption>
+            <figcaption>
+              <span>Happy days</span>
+              <small>Golden moments, gentle smiles</small>
+            </figcaption>
           </figure>
         </div>
       </section>
 
-      <section class="message section reveal" aria-labelledby="message-title">
+      <section class="message section reveal" id="message" aria-labelledby="message-title">
         <div class="message-panel">
           <p class="eyebrow">From my heart</p>
           <h2 id="message-title">A Message From Me 💌</h2>
@@ -88,7 +134,29 @@
         </div>
       </section>
 
-      <section class="wishes section reveal" aria-labelledby="wishes-title">
+      <section class="timeline section reveal" aria-labelledby="timeline-title">
+        <div class="section-heading">
+          <p class="eyebrow">A little journey of love</p>
+          <h2 id="timeline-title">Blessings For Your Year Ahead</h2>
+        </div>
+
+        <div class="timeline-list">
+          <article>
+            <span>Today</span>
+            <p>May this birthday begin with peace, smiles, and the feeling of being deeply loved.</p>
+          </article>
+          <article>
+            <span>Every Month</span>
+            <p>May new opportunities, good health, and proud moments come into your life.</p>
+          </article>
+          <article>
+            <span>Always</span>
+            <p>May our family continue to be blessed by your presence, your wisdom, and your love.</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="wishes section reveal" id="wishes" aria-labelledby="wishes-title">
         <div class="section-heading">
           <p class="eyebrow">Blessings for today and always</p>
           <h2 id="wishes-title">Birthday Wishes 🎂</h2>
@@ -107,6 +175,19 @@
             <span>03</span>
             <p>Keep smiling always</p>
           </article>
+        </div>
+      </section>
+
+      <section class="final-surprise section reveal" aria-labelledby="surprise-title">
+        <div class="surprise-box">
+          <p class="eyebrow">One more thing</p>
+          <h2 id="surprise-title">You Are Our Golden Blessing</h2>
+          <p>
+            May this page remind you that you are loved more than words can
+            fully say. Your happiness matters to us, your smile matters to us,
+            and your presence is one of the greatest gifts in our family.
+          </p>
+          <button class="confetti-button" type="button">Celebrate Mavayya 🎊</button>
         </div>
       </section>
     </main>

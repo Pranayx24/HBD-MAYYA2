@@ -45,6 +45,16 @@ body::before {
   mask-image: linear-gradient(to bottom, transparent, #000 12%, #000 86%, transparent);
 }
 
+body::after {
+  position: fixed;
+  inset: auto 0 0;
+  z-index: -1;
+  height: 34vh;
+  pointer-events: none;
+  content: "";
+  background: linear-gradient(to top, rgba(216, 173, 71, 0.12), transparent);
+}
+
 #goldCanvas {
   position: fixed;
   inset: 0;
@@ -56,6 +66,42 @@ body::before {
 
 button {
   font: inherit;
+}
+
+.top-nav {
+  position: fixed;
+  top: 1rem;
+  left: 50%;
+  z-index: 10;
+  display: flex;
+  gap: 0.2rem;
+  align-items: center;
+  max-width: calc(100% - 12rem);
+  padding: 0.35rem;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: rgba(8, 8, 7, 0.68);
+  box-shadow: 0 1rem 2.5rem var(--shadow);
+  backdrop-filter: blur(14px);
+  transform: translateX(-50%);
+}
+
+.top-nav a {
+  min-height: 2rem;
+  padding: 0.45rem 0.75rem;
+  color: var(--muted);
+  border-radius: 6px;
+  font-family: "Segoe UI", Arial, sans-serif;
+  font-size: 0.88rem;
+  font-weight: 700;
+  text-decoration: none;
+  transition: background 200ms ease, color 200ms ease;
+}
+
+.top-nav a:hover,
+.top-nav a:focus-visible {
+  color: #171108;
+  background: var(--gold-bright);
 }
 
 .music-toggle {
@@ -148,6 +194,13 @@ h2 {
   margin-bottom: 2.2rem;
 }
 
+.hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.8rem 1rem;
+  align-items: center;
+}
+
 .love-button {
   min-height: 3.25rem;
   padding: 0.85rem 1.4rem;
@@ -168,6 +221,26 @@ h2 {
   box-shadow: 0 1.4rem 3rem rgba(216, 173, 71, 0.34);
 }
 
+.quiet-link {
+  min-height: 3.25rem;
+  display: inline-grid;
+  place-items: center;
+  padding: 0.85rem 1.1rem;
+  color: var(--gold-bright);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  font-family: "Segoe UI", Arial, sans-serif;
+  font-weight: 800;
+  text-decoration: none;
+  transition: transform 200ms ease, border-color 200ms ease;
+}
+
+.quiet-link:hover,
+.quiet-link:focus-visible {
+  border-color: rgba(246, 215, 122, 0.65);
+  transform: translateY(-3px);
+}
+
 .section-copy {
   max-width: 850px;
   padding-left: 2rem;
@@ -177,6 +250,39 @@ h2 {
 .section-heading {
   max-width: 760px;
   margin-bottom: 2.2rem;
+}
+
+.quality-strip {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+.quality-strip article {
+  min-height: 220px;
+  padding: 1.35rem;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background:
+    linear-gradient(160deg, rgba(246, 215, 122, 0.12), transparent 48%),
+    rgba(8, 8, 7, 0.76);
+  box-shadow: 0 1.2rem 3rem var(--shadow);
+}
+
+.quality-strip strong {
+  display: block;
+  margin-bottom: 4rem;
+  color: var(--gold-bright);
+  font-family: "Segoe UI", Arial, sans-serif;
+  font-size: 0.95rem;
+  text-transform: uppercase;
+}
+
+.quality-strip p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 1.05rem;
+  line-height: 1.55;
 }
 
 .gallery {
@@ -224,10 +330,25 @@ figcaption {
   right: 1.2rem;
   bottom: 1.2rem;
   z-index: 1;
-  color: var(--ivory);
   font-family: "Segoe UI", Arial, sans-serif;
+}
+
+figcaption span,
+figcaption small {
+  display: block;
+}
+
+figcaption span {
+  color: var(--ivory);
   font-size: 1.05rem;
-  font-weight: 800;
+  font-weight: 900;
+}
+
+figcaption small {
+  margin-top: 0.3rem;
+  color: var(--muted);
+  font-size: 0.92rem;
+  font-weight: 600;
 }
 
 .message-panel {
@@ -247,6 +368,49 @@ figcaption {
   margin-top: 1rem;
   color: var(--gold-bright);
   font-weight: 700;
+}
+
+.timeline-list {
+  max-width: 900px;
+  border-left: 2px solid var(--gold);
+}
+
+.timeline-list article {
+  position: relative;
+  padding: 0 0 2rem 2rem;
+}
+
+.timeline-list article:last-child {
+  padding-bottom: 0;
+}
+
+.timeline-list article::before {
+  position: absolute;
+  top: 0.2rem;
+  left: -0.55rem;
+  width: 0.95rem;
+  height: 0.95rem;
+  border: 2px solid var(--gold-bright);
+  border-radius: 999px;
+  content: "";
+  background: var(--black);
+  box-shadow: 0 0 1.4rem rgba(246, 215, 122, 0.55);
+}
+
+.timeline-list span {
+  display: block;
+  margin-bottom: 0.45rem;
+  color: var(--gold-bright);
+  font-family: "Segoe UI", Arial, sans-serif;
+  font-weight: 900;
+}
+
+.timeline-list p {
+  max-width: 720px;
+  margin: 0;
+  color: var(--muted);
+  font-size: 1.15rem;
+  line-height: 1.7;
 }
 
 .wish-grid {
@@ -285,6 +449,56 @@ figcaption {
   color: var(--ivory);
   font-size: 1.55rem;
   line-height: 1.25;
+}
+
+.final-surprise {
+  padding-bottom: 7rem;
+}
+
+.surprise-box {
+  display: grid;
+  place-items: center;
+  min-height: 430px;
+  padding: 3rem 2rem;
+  border: 1px solid rgba(246, 215, 122, 0.34);
+  border-radius: 8px;
+  text-align: center;
+  background:
+    linear-gradient(135deg, rgba(216, 173, 71, 0.18), transparent 46%),
+    linear-gradient(225deg, rgba(230, 109, 134, 0.1), transparent 48%),
+    rgba(5, 5, 5, 0.78);
+  box-shadow: 0 2rem 5rem var(--shadow);
+}
+
+.surprise-box p {
+  max-width: 720px;
+  color: var(--muted);
+  font-size: 1.18rem;
+  line-height: 1.75;
+}
+
+.confetti-button {
+  min-height: 3.2rem;
+  margin-top: 1rem;
+  padding: 0.8rem 1.25rem;
+  color: #161007;
+  border: 0;
+  border-radius: 8px;
+  background: linear-gradient(135deg, var(--gold-bright), var(--gold));
+  cursor: pointer;
+  font-family: "Segoe UI", Arial, sans-serif;
+  font-weight: 900;
+  box-shadow: 0 1.1rem 2.6rem rgba(216, 173, 71, 0.24);
+}
+
+.confetti-piece {
+  position: fixed;
+  top: -1rem;
+  z-index: 30;
+  width: 0.55rem;
+  height: 0.9rem;
+  pointer-events: none;
+  animation: confettiFall 2.8s linear forwards;
 }
 
 footer {
@@ -357,7 +571,22 @@ footer p {
   }
 }
 
+@keyframes confettiFall {
+  from {
+    opacity: 1;
+    transform: translateY(0) rotate(0deg);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(105vh) rotate(760deg);
+  }
+}
+
 @media (max-width: 900px) {
+  .top-nav {
+    display: none;
+  }
+
   .section {
     padding: 4.5rem 0;
   }
@@ -370,9 +599,10 @@ footer p {
     font-size: 2.35rem;
   }
 
+  .quality-strip,
   .gallery,
   .wish-grid {
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
   figure,
@@ -422,6 +652,29 @@ footer p {
 
   .message-panel {
     padding: 1.25rem;
+  }
+
+  .quality-strip,
+  .gallery,
+  .wish-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .quality-strip article {
+    min-height: 180px;
+  }
+
+  .quality-strip strong {
+    margin-bottom: 2.5rem;
+  }
+
+  .timeline-list article {
+    padding-left: 1.25rem;
+  }
+
+  .surprise-box {
+    min-height: 360px;
+    padding: 2rem 1rem;
   }
 
   .wish-card {

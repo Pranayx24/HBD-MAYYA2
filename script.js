@@ -3,6 +3,7 @@ const ctx = canvas.getContext("2d");
 const revealItems = document.querySelectorAll(".reveal");
 const loveButton = document.querySelector(".love-button");
 const musicToggle = document.querySelector(".music-toggle");
+const confettiButton = document.querySelector(".confetti-button");
 
 let particles = [];
 let audioContext;
@@ -100,6 +101,23 @@ function launchHeart(x, y) {
   window.setTimeout(() => heart.remove(), 1850);
 }
 
+function launchConfetti() {
+  const colors = ["#f6d77a", "#d8ad47", "#fff7e8", "#e66d86", "#89c6a0"];
+
+  for (let index = 0; index < 90; index += 1) {
+    window.setTimeout(() => {
+      const piece = document.createElement("span");
+      piece.className = "confetti-piece";
+      piece.style.left = `${Math.random() * 100}vw`;
+      piece.style.background = colors[Math.floor(Math.random() * colors.length)];
+      piece.style.animationDuration = `${Math.random() * 1.8 + 2.1}s`;
+      piece.style.transform = `rotate(${Math.random() * 180}deg)`;
+      document.body.appendChild(piece);
+      window.setTimeout(() => piece.remove(), 4200);
+    }, index * 16);
+  }
+}
+
 function createAudio() {
   audioContext = new AudioContext();
   masterGain = audioContext.createGain();
@@ -188,6 +206,20 @@ loveButton.addEventListener("click", (event) => {
       const y = centerY + Math.random() * 30 - 15;
       launchHeart(x, y);
     }, index * 45);
+  }
+
+  if (!isMusicPlaying) {
+    startMusic();
+  }
+});
+
+confettiButton.addEventListener("click", () => {
+  launchConfetti();
+
+  for (let index = 0; index < 12; index += 1) {
+    window.setTimeout(() => {
+      launchHeart(window.innerWidth / 2 + Math.random() * 180 - 90, window.innerHeight * 0.58);
+    }, index * 60);
   }
 
   if (!isMusicPlaying) {
