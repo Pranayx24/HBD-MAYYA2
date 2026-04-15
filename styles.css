@@ -728,6 +728,19 @@ figcaption small {
   background: rgba(8, 8, 7, 0.72);
 }
 
+.frame-mode-button,
+.install-button {
+  min-height: 3.1rem;
+  padding: 0.8rem 1.2rem;
+  color: var(--gold-bright);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: rgba(8, 8, 7, 0.72);
+  cursor: pointer;
+  font-family: "Segoe UI", Arial, sans-serif;
+  font-weight: 900;
+}
+
 .wish-form {
   max-width: 840px;
   padding: 1.25rem;
@@ -978,6 +991,117 @@ figcaption small {
 .gift-message p {
   margin: 0;
   color: var(--ivory);
+}
+
+.jar-stage {
+  display: grid;
+  place-items: center;
+  min-height: 430px;
+  padding: 2rem;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background:
+    radial-gradient(circle at 50% 28%, rgba(246, 215, 122, 0.2), transparent 18rem),
+    rgba(8, 8, 7, 0.76);
+  box-shadow: 0 1.5rem 4rem var(--shadow);
+}
+
+.jar-button {
+  position: relative;
+  width: 220px;
+  height: 250px;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+}
+
+.jar-lid,
+.jar-glass,
+.jar-shine {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.jar-lid {
+  top: 26px;
+  width: 150px;
+  height: 34px;
+  border-radius: 8px 8px 4px 4px;
+  background: linear-gradient(135deg, var(--gold-bright), var(--gold));
+}
+
+.jar-glass {
+  top: 58px;
+  width: 180px;
+  height: 160px;
+  border: 2px solid rgba(246, 215, 122, 0.55);
+  border-radius: 22px 22px 42px 42px;
+  background:
+    radial-gradient(circle at 50% 72%, rgba(216, 173, 71, 0.28), transparent 4rem),
+    rgba(255, 247, 232, 0.06);
+  box-shadow: inset 0 0 2.2rem rgba(246, 215, 122, 0.12);
+}
+
+.jar-shine {
+  top: 88px;
+  width: 22px;
+  height: 80px;
+  border-radius: 999px;
+  background: rgba(255, 247, 232, 0.34);
+  transform: translateX(-48px) rotate(10deg);
+}
+
+.jar-note {
+  max-width: 620px;
+  margin: 1rem 0 0;
+  color: var(--ivory);
+  font-size: 1.35rem;
+  line-height: 1.45;
+  text-align: center;
+}
+
+.frame-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+  display: none;
+  place-items: center;
+  padding: 1rem;
+  background: #030303;
+}
+
+.frame-overlay.active {
+  display: grid;
+}
+
+.frame-overlay img {
+  width: min(100%, 980px);
+  max-height: 78svh;
+  object-fit: cover;
+  border: 1px solid rgba(246, 215, 122, 0.45);
+  border-radius: 8px;
+  box-shadow: 0 2rem 6rem rgba(0, 0, 0, 0.78);
+}
+
+.frame-overlay p {
+  margin: 1rem 0 0;
+  color: var(--gold-bright);
+  font-size: 1.45rem;
+  text-align: center;
+}
+
+.frame-close {
+  position: fixed;
+  top: 1rem;
+  right: 1rem;
+  min-height: 2.8rem;
+  padding: 0.6rem 1rem;
+  color: var(--ivory);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: rgba(8, 8, 7, 0.82);
+  cursor: pointer;
 }
 
 .firework {
@@ -1300,6 +1424,8 @@ footer p {
 
   .open-surprise,
   .share-button,
+  .frame-mode-button,
+  .install-button,
   .next-wish-button,
   .print-letter-button,
   .wish-form button,
@@ -1425,6 +1551,19 @@ footer p {
 
   .gift-shell {
     padding: 1.25rem;
+  }
+
+  .jar-stage {
+    min-height: 340px;
+    padding: 1rem;
+  }
+
+  .jar-button {
+    transform: scale(0.85);
+  }
+
+  .jar-note {
+    font-size: 1.1rem;
   }
 
   .signature-grid p {

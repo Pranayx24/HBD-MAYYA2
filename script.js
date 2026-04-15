@@ -16,6 +16,14 @@ const printLetterButton = document.querySelector(".print-letter-button");
 const giftBox = document.querySelector(".gift-box");
 const giftMessage = document.querySelector(".gift-message");
 const toast = document.querySelector(".toast");
+const jarButton = document.querySelector(".jar-button");
+const jarNote = document.querySelector(".jar-note");
+const frameModeButton = document.querySelector(".frame-mode-button");
+const frameOverlay = document.querySelector(".frame-overlay");
+const frameImage = frameOverlay.querySelector("img");
+const frameText = frameOverlay.querySelector("p");
+const frameClose = document.querySelector(".frame-close");
+const installButton = document.querySelector(".install-button");
 const clockDays = document.querySelector(".clock-days");
 const clockHours = document.querySelector(".clock-hours");
 const clockMinutes = document.querySelector(".clock-minutes");
@@ -39,6 +47,8 @@ let musicTimer;
 let isMusicPlaying = false;
 let countersStarted = false;
 let typewriterStarted = false;
+let deferredInstallPrompt;
+let frameIndex = 0;
 
 const notes = [261.63, 329.63, 392.0, 493.88, 523.25, 392.0, 329.63, 293.66];
 const starterWishes = [
@@ -53,6 +63,13 @@ const goldenWishes = [
   "May your smile stay strong through every season of life.",
   "You are not just celebrated today; you are treasured always.",
   "May your heart feel the same safety you give everyone else.",
+];
+const jarBlessings = [
+  "You are our family's golden strength.",
+  "May every day return your kindness back to you.",
+  "Your guidance is a light I will always follow.",
+  "May health, peace, and happiness stay close to you.",
+  "You are loved more deeply than words can say.",
 ];
 let wishIndex = 0;
 
@@ -459,6 +476,30 @@ giftBox.addEventListener("click", () => {
   }
 });
 
+jarButton.addEventListener("click", () => {
+  jarNote.textContent = jarBlessings[Math.floor(Math.random() * jarBlessings.length)];
+  launchConfetti();
+});
+
+function showFrame() {
+  const card = memoryCards[frameIndex % memoryCards.length];
+  const image = card.querySelector("img");
+  frameImage.src = image.src;
+  frameImage.alt = image.alt;
+  frameText.textContent = card.dataset.title;
+  frameOverlay.classList.add("active");
+  frameOverlay.setAttribute("aria-hidden", "false");
+  frameIndex += 1;
+}
+
+frameModeButton.addEventListener("click", showFrame);
+frameOverlay.addEventListener("click", showFrame);
+frameClose.addEventListener("click", (event) => {
+  event.stopPropagation();
+  frameOverlay.classList.remove("active");
+  frameOverlay.setAttribute("aria-hidden", "true");
+});
+
 shareButton.addEventListener("click", async () => {
   const shareData = {
     title: "Happy Birthday Mavayya",
@@ -483,6 +524,30 @@ shareButton.addEventListener("click", async () => {
     }, 1800);
   }
 });
+
+window.addEventListener("beforeinstallprompt", (event) => {
+  event.preventDefault();
+  deferredInstallPrompt = event;
+  installButton.hidden = false;
+});
+
+installButton.addEventListener("click", async () => {
+  if (!deferredInstallPrompt) {
+    showToast("Use browser menu to add this page to your phone");
+    return;
+  }
+
+  deferredInstallPrompt.prompt();
+  await deferredInstallPrompt.userChoice;
+  deferredInstallPrompt = null;
+  installButton.hidden = true;
+});
+
+if ("serviceWorker" in navigator) {
+  window.addEventListener("load", () => {
+    navigator.serviceWorker.register("./sw.js").catch(() => {});
+  });
+}
 
 window.addEventListener("resize", sizeCanvas);
 window.addEventListener("scroll", updateProgress, { passive: true });

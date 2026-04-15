@@ -3,7 +3,13 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#030303" />
+    <meta
+      name="description"
+      content="A premium black and gold birthday surprise made with love for Mavayya."
+    />
     <title>Happy Birthday Mavayya</title>
+    <link rel="manifest" href="manifest.webmanifest" />
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
@@ -30,6 +36,7 @@
       <a href="#wishes">Wishes</a>
       <a href="#wish-studio">Blessing</a>
       <a href="#gift">Gift</a>
+      <a href="#jar">Jar</a>
     </nav>
 
     <nav class="mobile-nav" aria-label="Mobile birthday sections">
@@ -337,6 +344,26 @@
         <div class="saved-wishes" aria-live="polite"></div>
       </section>
 
+      <section class="blessing-jar section reveal" id="jar" aria-labelledby="jar-title">
+        <div class="section-heading">
+          <p class="eyebrow">Tap for a blessing</p>
+          <h2 id="jar-title">Golden Blessing Jar</h2>
+          <p>
+            Open the jar whenever you want one more small reminder of love,
+            respect, and gratitude.
+          </p>
+        </div>
+
+        <div class="jar-stage">
+          <button class="jar-button" type="button" aria-label="Open blessing jar">
+            <span class="jar-lid"></span>
+            <span class="jar-glass"></span>
+            <span class="jar-shine"></span>
+          </button>
+          <p class="jar-note">Tap the jar to pick a golden blessing.</p>
+        </div>
+      </section>
+
       <section class="secret-gift section reveal" id="gift" aria-labelledby="gift-title">
         <div class="gift-shell">
           <div>
@@ -375,6 +402,8 @@
           <div class="surprise-actions">
             <button class="confetti-button" type="button">Celebrate Mavayya 🎊</button>
             <button class="share-button" type="button">Share Love</button>
+            <button class="frame-mode-button" type="button">Photo Frame Mode</button>
+            <button class="install-button" type="button" hidden>Install</button>
           </div>
         </div>
       </section>
@@ -390,6 +419,12 @@
     </dialog>
 
     <div class="toast" role="status" aria-live="polite"></div>
+
+    <div class="frame-overlay" aria-hidden="true">
+      <button class="frame-close" type="button">Exit</button>
+      <img src="" alt="" />
+      <p></p>
+    </div>
 
     <footer>
       <p>Made with <span class="heart">❤️</span> for my Mavayya</p>
